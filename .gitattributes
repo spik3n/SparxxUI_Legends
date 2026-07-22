@@ -1,0 +1,17 @@
+# Normalize line endings for text; leave game binaries untouched.
+* text=auto
+
+*.xml  text
+*.ini  text
+*.md   text
+*.py   text
+*.bat  text eol=crlf
+
+*.tga  binary
+*.dds  binary
+*.bmp  binary
+*.png  binary
+*.jpg  binary
+*.gif  binary
+*.cur  binary
+*.xcf  binary
