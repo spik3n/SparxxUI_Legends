@@ -1,7 +1,7 @@
 # SparxxUI for EverQuest Legends
 
 The classic **Sparxx** look, rebuilt for **EverQuest Legends**, in seven accent
-colors — plus the animated 3D target ring.
+colors — plus a con-colored 3D target ring.
 
 EverQuest Legends uses a different UI window set than retail EverQuest (a
 classic-era client: `EQUI_CharacterSelect`, `EQUI_BuffWindow1`–`17`,
@@ -30,11 +30,16 @@ gauges and links stay readable.
 
 ## The 3D target ring
 
-`TargetRing/` holds the animated con-colored ring that renders under your target
-in the world (grey → green → light blue → dark blue → white → yellow → red by
-difficulty), shared by every theme so it isn't duplicated seven times. The
-installer copies it into whichever theme you install. It is the same ring for
-all themes — its color signals target difficulty, not the UI accent.
+`TargetRing/` holds `TargetIndicator.ini`, a bolder con-colored ring that renders
+under your target in the world (grey → green → blue → white → yellow → red by
+difficulty). The installer copies it into whichever theme you install; it's the
+same ring for all themes, since its color signals target difficulty, not the UI
+accent.
+
+It uses the single-texture target-ring format the EverQuest Legends client
+supports (tinted per con over each theme's `TargetIndicator.tga`). The animated
+multi-frame ring style from modern retail EverQuest is **not** supported by the
+Legends client, so it isn't used here.
 
 ## Install (installer)
 
@@ -59,9 +64,8 @@ No installer needed — it's the same drop-in copy EverQuest UIs have always use
 
 1. Copy one theme folder (e.g. `SparxxVenom`) into your Legends `uifiles`
    folder, so you have `...\uifiles\SparxxVenom\`.
-2. Copy the **contents** of `TargetRing/` into that same theme folder (so the
-   ring's `.tga` files and `TargetIndicator.ini` sit beside `EQUI.xml`). Skip
-   this step if you don't want the 3D ring.
+2. Copy `TargetRing/TargetIndicator.ini` into that same theme folder (beside
+   `EQUI.xml`). Skip this step if you don't want the con-colored ring.
 3. In game: `/loadskin SparxxVenom 1`.
 
 Close EverQuest before copying — it rewrites UI files on exit.
@@ -70,8 +74,8 @@ Close EverQuest before copying — it rewrites UI files on exit.
 
 - If windows look misplaced the first time, that's saved positions, not the
   skin — drag them, or remove your `UI_<character>_<server>.ini` to start fresh.
-- To remove the ring later, delete `TargetIndicator.ini` and the ring `.tga`
-  files from the theme folder; the client falls back to its default ring.
+- To remove the ring later, delete `TargetIndicator.ini` from the theme folder;
+  the client falls back to its default ring.
 - Requirements for the installer: Python 3 (Tkinter, included with the standard
   Windows Python, is used for the folder browser; if it's unavailable the script
   asks you to paste the path instead).
