@@ -39,7 +39,7 @@ all themes — its color signals target difficulty, not the UI accent.
 ## Install (installer)
 
 1. Run `Install.bat` (or `python install.py`).
-2. Choose a theme from the list.
+2. Choose a single theme, or pick **Install ALL themes** to drop in every color.
 3. When the folder browser opens, select your EverQuest Legends folder (the one
    containing `eqgame.exe`).
 4. In game, load it:

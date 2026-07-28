@@ -1,8 +1,8 @@
 """
 SparxxUI for EverQuest Legends - installer.
 
-Pick a theme, browse to your EverQuest Legends folder, and the matching skin
-(plus the shared 3D target ring) is copied into uifiles ready to load.
+Pick one theme or all of them, browse to your EverQuest Legends folder, and the
+skin(s) plus the shared 3D target ring are copied into uifiles ready to load.
 """
 import os
 import sys
@@ -16,14 +16,19 @@ THEMES = [
 ]
 
 
-def choose_theme():
+def choose_themes():
     print("Available themes:\n")
     for i, name in enumerate(THEMES, 1):
         print(f"  {i}. {name}")
+    print(f"  {len(THEMES) + 1}. Install ALL themes")
     while True:
-        pick = input(f"\nChoose a theme [1-{len(THEMES)}]: ").strip()
-        if pick.isdigit() and 1 <= int(pick) <= len(THEMES):
-            return THEMES[int(pick) - 1]
+        pick = input(f"\nChoose [1-{len(THEMES) + 1}]: ").strip()
+        if pick.isdigit():
+            n = int(pick)
+            if 1 <= n <= len(THEMES):
+                return [THEMES[n - 1]]
+            if n == len(THEMES) + 1:
+                return list(THEMES)
         print("Please enter a number from the list.")
 
 
@@ -66,39 +71,57 @@ def copy_into(src_dir, dst_dir):
             shutil.copy2(s, os.path.join(dst_dir, name))
 
 
-def main():
-    print("SparxxUI for EverQuest Legends - installer\n")
-    theme = choose_theme()
+def install_one(theme, uifiles, overwrite):
     theme_dir = os.path.join(HERE, theme)
     if not os.path.isdir(theme_dir):
-        sys.exit(f"Theme folder not found next to this script: {theme_dir}")
+        print(f"  ! {theme}: source folder not found, skipped")
+        return None
+    dest = os.path.join(uifiles, theme)
+    if os.path.isdir(dest):
+        if overwrite is False:
+            print(f"  - {theme}: already installed, skipped")
+            return None
+        shutil.rmtree(dest)
+    os.makedirs(dest, exist_ok=True)
+    copy_into(theme_dir, dest)
+    if os.path.isdir(RING):
+        copy_into(RING, dest)
+    print(f"  + {theme} installed (with target ring)")
+    return dest
+
+
+def main():
+    print("SparxxUI for EverQuest Legends - installer\n")
+    themes = choose_themes()
 
     print("\nOpening a folder browser - pick your EverQuest Legends folder...")
     game = browse_folder()
     if not game or not os.path.isdir(game):
         sys.exit("No valid folder selected.")
-
     uifiles = resolve_uifiles(game)
-    dest = os.path.join(uifiles, theme)
 
-    if os.path.isdir(dest):
-        ans = input(f"\n{dest}\nalready exists. Overwrite it? [y/N]: ").strip().lower()
-        if ans != "y":
-            sys.exit("Cancelled.")
-        shutil.rmtree(dest)
-    os.makedirs(dest)
+    # For an all-install, decide overwrite once up front.
+    overwrite = True
+    existing = [t for t in themes if os.path.isdir(os.path.join(uifiles, t))]
+    if existing:
+        ans = input(f"\n{len(existing)} of these are already in uifiles. "
+                    f"Overwrite them? [y/N]: ").strip().lower()
+        overwrite = (ans == "y")
 
-    print(f"\nInstalling {theme} ...")
-    copy_into(theme_dir, dest)
-    if os.path.isdir(RING):
-        copy_into(RING, dest)
-        print("Added shared 3D target ring.")
-    else:
-        print("Note: TargetRing folder not found - skin installed without the ring.")
+    if not os.path.isdir(RING):
+        print("\nNote: TargetRing folder not found - installing skins without the ring.")
+
+    print(f"\nInstalling to: {uifiles}\n")
+    installed = [install_one(t, uifiles, overwrite) for t in themes]
+    installed = [t for t in zip(themes, installed) if t[1]]
 
     print("\nDone.")
-    print(f"Installed to: {dest}")
-    print(f"In game, load it with:  /loadskin {theme} 1")
+    if installed:
+        print("Load a theme in game with /loadskin <name> 1, for example:")
+        for name, _ in installed:
+            print(f"  /loadskin {name} 1")
+    else:
+        print("Nothing was installed.")
 
 
 if __name__ == "__main__":
