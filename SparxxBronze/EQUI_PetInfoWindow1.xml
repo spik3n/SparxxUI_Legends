@@ -246,40 +246,9 @@
 		<FontShadow>true</FontShadow>
 	</Label>
 
-	<Ui2DAnimation item="PetTarget_Indicator">
-		<Cycle>true</Cycle>
-		<Frames>
-		  <Texture>window_fg_pieces.tga</Texture>
-		  <Location>
-			<X>0</X>
-			<Y>0</Y>
-		  </Location>
-		  <Size>
-			<CX>25</CX>
-			<CY>25</CY>
-		  </Size>
-		  <Hotspot>
-			<X>0</X>
-			<Y>0</Y>
-		  </Hotspot>
-		  <Duration>1000</Duration>
-		</Frames>
-	</Ui2DAnimation>
 
-	<StaticAnimation item="PetTarget_Indicator">
-		<RelativePosition>true</RelativePosition>
-		<Location>
-		  <X>5</X>
-		  <Y>46</Y>
-		</Location>
-		<Size>
-		  <CX>25</CX>
-		  <CY>25</CY>
-		</Size>
-		<Animation>PetTarget_Indicator</Animation>
-	</StaticAnimation>
 
-	<Button item="PIW_Pet0_Button">
+<Button item="PIW_Pet0_Button">
 		<ScreenID>Pet0_Button</ScreenID>
 		<RelativePosition>true</RelativePosition>
 		<Location>
@@ -656,7 +625,6 @@
 		<Pieces>PIW_Pet11_Button</Pieces>
 		<Pieces>PIW_Pet12_Button</Pieces>
 		<Pieces>PIW_Pet13_Button</Pieces>
-		<Pieces>PetTarget_Indicator</Pieces>
 		<Pieces>PIW_PetHPGaugeLabel</Pieces>
 		<Pieces>PIW_PetTargetHPGaugeLabel</Pieces>
 	</Screen>
