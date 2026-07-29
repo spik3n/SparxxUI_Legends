@@ -58,7 +58,8 @@ takes — higher = slower. `FrameCount=0` with `Texture=<Color>_0` = no spin.
 
 1. Run `Install.bat` (or `python install.py`).
 2. Choose a single theme, or pick **Install ALL themes** to drop in every color.
-3. When the folder browser opens, select your EverQuest Legends folder (the one
+3. Choose the **target ring rotation** (no spin / slow / normal / fast).
+4. When the folder browser opens, select your EverQuest Legends folder (the one
    containing `eqgame.exe`).
 4. In game, load it:
 

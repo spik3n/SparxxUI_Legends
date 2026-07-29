@@ -15,6 +15,13 @@ THEMES = [
     "SparxxRed", "SparxxGold", "SparxxBronze",
 ]
 
+RING_OPTIONS = [
+    ("no-spin.ini",   "No spin - static ring (fastest to load)"),
+    ("spin-slow.ini", "Slow spin"),
+    ("spin.ini",      "Normal spin"),
+    ("spin-fast.ini", "Fast spin"),
+]
+
 
 def choose_themes():
     print("Available themes:\n")
@@ -29,6 +36,19 @@ def choose_themes():
                 return [THEMES[n - 1]]
             if n == len(THEMES) + 1:
                 return list(THEMES)
+        print("Please enter a number from the list.")
+
+
+def choose_spin():
+    print("\nTarget ring rotation:")
+    for i, (_, label) in enumerate(RING_OPTIONS, 1):
+        print(f"  {i}. {label}")
+    while True:
+        pick = input(f"Choose [1-{len(RING_OPTIONS)}] (Enter = 1): ").strip()
+        if pick == "":
+            return RING_OPTIONS[0][0]
+        if pick.isdigit() and 1 <= int(pick) <= len(RING_OPTIONS):
+            return RING_OPTIONS[int(pick) - 1][0]
         print("Please enter a number from the list.")
 
 
@@ -88,21 +108,26 @@ def install_one(theme, uifiles, overwrite):
     return dest
 
 
-def install_ring(uifiles):
+def install_ring(uifiles, spin_file):
     """The target ring loads from uifiles\\default regardless of the active skin,
-    so it's installed there once (not into every theme)."""
+    so it's installed there once (not into every theme). spin_file selects the
+    rotation variant from TargetRing/options/."""
     if not os.path.isdir(RING):
         return False
     dest = os.path.join(uifiles, "default")
     os.makedirs(dest, exist_ok=True)
     copy_into(RING, dest)  # ring frames + TargetIndicator.ini; skips the options/ subfolder
-    print("  + target ring installed into uifiles\\default")
+    chosen = os.path.join(RING, "options", spin_file)
+    if os.path.isfile(chosen):
+        shutil.copy2(chosen, os.path.join(dest, "TargetIndicator.ini"))
+    print(f"  + target ring installed into uifiles\\default ({spin_file})")
     return True
 
 
 def main():
     print("SparxxUI for EverQuest Legends - installer\n")
     themes = choose_themes()
+    spin_file = choose_spin()
 
     print("\nOpening a folder browser - pick your EverQuest Legends folder...")
     game = browse_folder()
@@ -121,7 +146,7 @@ def main():
     print(f"\nInstalling to: {uifiles}\n")
     installed = [install_one(t, uifiles, overwrite) for t in themes]
     installed = [t for t in zip(themes, installed) if t[1]]
-    if not install_ring(uifiles):
+    if not install_ring(uifiles, spin_file):
         print("  (TargetRing folder not found - skins installed without the ring)")
 
     print("\nDone.")
