@@ -28,6 +28,19 @@ and differ only in accent color:
 HP-red, mana-blue, casting and item-link colors are kept in every theme so
 gauges and links stay readable.
 
+## Gallery
+
+| | |
+|:---:|:---:|
+| **Dark** | **Obsidian** |
+| ![SparxxDark](SparxxUI_pictures/Sparxx_dark.png) | ![SparxxObsidian](SparxxUI_pictures/Sparxx_obsidian.png) |
+| **Venom** | **Ember** |
+| ![SparxxVenom](SparxxUI_pictures/Sparxx_venom.png) | ![SparxxEmber](SparxxUI_pictures/Sparxx_ember.png) |
+| **Red** | **Gold** |
+| ![SparxxRed](SparxxUI_pictures/Sparxx_red.png) | ![SparxxGold](SparxxUI_pictures/Sparxx_gold.png) |
+| **Bronze** | **3D target ring** |
+| ![SparxxBronze](SparxxUI_pictures/Sparxx_bronze.png) | ![Target ring](SparxxUI_pictures/targetRing.png) |
+
 ## The 3D target ring
 
 `TargetRing/` holds the con-colored ring that renders under your target in the
