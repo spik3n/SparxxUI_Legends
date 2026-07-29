@@ -16,10 +16,11 @@ THEMES = [
 ]
 
 RING_OPTIONS = [
-    ("no-spin.ini",   "No spin - static ring (fastest to load)"),
-    ("spin-slow.ini", "Slow spin"),
-    ("spin.ini",      "Normal spin"),
-    ("spin-fast.ini", "Fast spin"),
+    ("no-spin.ini",   "Sparxx ring, no spin - static (fastest to load)"),
+    ("spin-slow.ini", "Sparxx ring, slow spin"),
+    ("spin.ini",      "Sparxx ring, normal spin"),
+    ("spin-fast.ini", "Sparxx ring, fast spin"),
+    ("",              "Keep the game's default ring (don't install the Sparxx ring)"),
 ]
 
 
@@ -40,7 +41,7 @@ def choose_themes():
 
 
 def choose_spin():
-    print("\nTarget ring rotation:")
+    print("\nTarget ring:")
     for i, (_, label) in enumerate(RING_OPTIONS, 1):
         print(f"  {i}. {label}")
     while True:
@@ -146,7 +147,9 @@ def main():
     print(f"\nInstalling to: {uifiles}\n")
     installed = [install_one(t, uifiles, overwrite) for t in themes]
     installed = [t for t in zip(themes, installed) if t[1]]
-    if not install_ring(uifiles, spin_file):
+    if not spin_file:
+        print("  + kept the game's default target ring (Sparxx ring not installed)")
+    elif not install_ring(uifiles, spin_file):
         print("  (TargetRing folder not found - skins installed without the ring)")
 
     print("\nDone.")

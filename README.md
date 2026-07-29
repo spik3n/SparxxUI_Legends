@@ -33,13 +33,13 @@ gauges and links stay readable.
 | | |
 |:---:|:---:|
 | **Dark** | **Obsidian** |
-| ![SparxxDark](SparxxUI_pictures/Sparxx_dark.png) | ![SparxxObsidian](SparxxUI_pictures/Sparxx_obsidian.png) |
+| ![SparxxDark](SparxxUI_pictures/SparxxDark.png) | ![SparxxObsidian](SparxxUI_pictures/SparxxObsidian.png) |
 | **Venom** | **Ember** |
-| ![SparxxVenom](SparxxUI_pictures/Sparxx_venom.png) | ![SparxxEmber](SparxxUI_pictures/Sparxx_ember.png) |
+| ![SparxxVenom](SparxxUI_pictures/SparxxVenom.png) | ![SparxxEmber](SparxxUI_pictures/SparxxEmber.png) |
 | **Red** | **Gold** |
-| ![SparxxRed](SparxxUI_pictures/Sparxx_red.png) | ![SparxxGold](SparxxUI_pictures/Sparxx_gold.png) |
+| ![SparxxRed](SparxxUI_pictures/SparxxRed.png) | ![SparxxGold](SparxxUI_pictures/SparxxGold.png) |
 | **Bronze** | **3D target ring** |
-| ![SparxxBronze](SparxxUI_pictures/Sparxx_bronze.png) | ![Target ring](SparxxUI_pictures/targetRing.png) |
+| ![SparxxBronze](SparxxUI_pictures/SparxxBronze.png) | ![Target ring](SparxxUI_pictures/TargetRing.png) |
 
 ## The 3D target ring
 
@@ -71,7 +71,8 @@ takes — higher = slower. `FrameCount=0` with `Texture=<Color>_0` = no spin.
 
 1. Run `Install.bat` (or `python install.py`).
 2. Choose a single theme, or pick **Install ALL themes** to drop in every color.
-3. Choose the **target ring rotation** (no spin / slow / normal / fast).
+3. Choose the **target ring** — a Sparxx ring (no spin / slow / normal / fast),
+   or keep the game's default ring.
 4. When the folder browser opens, select your EverQuest Legends folder (the one
    containing `eqgame.exe`).
 4. In game, load it:
