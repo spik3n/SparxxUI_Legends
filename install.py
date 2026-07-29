@@ -84,10 +84,20 @@ def install_one(theme, uifiles, overwrite):
         shutil.rmtree(dest)
     os.makedirs(dest, exist_ok=True)
     copy_into(theme_dir, dest)
-    if os.path.isdir(RING):
-        copy_into(RING, dest)
-    print(f"  + {theme} installed (with target ring)")
+    print(f"  + {theme} installed")
     return dest
+
+
+def install_ring(uifiles):
+    """The target ring loads from uifiles\\default regardless of the active skin,
+    so it's installed there once (not into every theme)."""
+    if not os.path.isdir(RING):
+        return False
+    dest = os.path.join(uifiles, "default")
+    os.makedirs(dest, exist_ok=True)
+    copy_into(RING, dest)  # ring frames + TargetIndicator.ini; skips the options/ subfolder
+    print("  + target ring installed into uifiles\\default")
+    return True
 
 
 def main():
@@ -108,12 +118,11 @@ def main():
                     f"Overwrite them? [y/N]: ").strip().lower()
         overwrite = (ans == "y")
 
-    if not os.path.isdir(RING):
-        print("\nNote: TargetRing folder not found - installing skins without the ring.")
-
     print(f"\nInstalling to: {uifiles}\n")
     installed = [install_one(t, uifiles, overwrite) for t in themes]
     installed = [t for t in zip(themes, installed) if t[1]]
+    if not install_ring(uifiles):
+        print("  (TargetRing folder not found - skins installed without the ring)")
 
     print("\nDone.")
     if installed:
