@@ -70,7 +70,8 @@ takes — higher = slower. `FrameCount=0` with `Texture=<Color>_0` = no spin.
 ## Install (installer)
 
 1. Run `Install.bat` (or `python install.py`).
-2. Choose a single theme, or pick **Install ALL themes** to drop in every color.
+2. Choose a single theme, **Install ALL themes**, or **Target ring only** (just
+   the ring, no theme — handy if you already have a UI you like).
 3. Choose the **target ring** — a Sparxx ring (no spin / slow / normal / fast),
    or keep the game's default ring.
 4. When the folder browser opens, select your EverQuest Legends folder (the one

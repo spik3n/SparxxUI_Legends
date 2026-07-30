@@ -28,15 +28,20 @@ def choose_themes():
     print("Available themes:\n")
     for i, name in enumerate(THEMES, 1):
         print(f"  {i}. {name}")
-    print(f"  {len(THEMES) + 1}. Install ALL themes")
+    all_opt = len(THEMES) + 1
+    ring_opt = len(THEMES) + 2
+    print(f"  {all_opt}. Install ALL themes")
+    print(f"  {ring_opt}. Target ring only (no theme)")
     while True:
-        pick = input(f"\nChoose [1-{len(THEMES) + 1}]: ").strip()
+        pick = input(f"\nChoose [1-{ring_opt}]: ").strip()
         if pick.isdigit():
             n = int(pick)
             if 1 <= n <= len(THEMES):
                 return [THEMES[n - 1]]
-            if n == len(THEMES) + 1:
+            if n == all_opt:
                 return list(THEMES)
+            if n == ring_opt:
+                return []          # ring only
         print("Please enter a number from the list.")
 
 
@@ -147,16 +152,24 @@ def main():
     print(f"\nInstalling to: {uifiles}\n")
     installed = [install_one(t, uifiles, overwrite) for t in themes]
     installed = [t for t in zip(themes, installed) if t[1]]
-    if not spin_file:
+
+    ring_done = False
+    if spin_file:
+        ring_done = install_ring(uifiles, spin_file)
+        if not ring_done:
+            print("  (TargetRing folder not found - ring not installed)")
+    elif themes:
         print("  + kept the game's default target ring (Sparxx ring not installed)")
-    elif not install_ring(uifiles, spin_file):
-        print("  (TargetRing folder not found - skins installed without the ring)")
 
     print("\nDone.")
     if installed:
         print("Load a theme in game with /loadskin <name> 1, for example:")
         for name, _ in installed:
             print(f"  /loadskin {name} 1")
+        if ring_done:
+            print("Fully restart EverQuest to load the target ring.")
+    elif ring_done:
+        print("Target ring installed. Fully restart EverQuest to load it.")
     else:
         print("Nothing was installed.")
 
