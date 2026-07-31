@@ -3,20 +3,25 @@
 	<Schema xmlns="EverQuestData" xmlns:dt="EverQuestDataTypes" />
 	<Button item="SDBW_Player_Buff_Template">
 		<ScreenID>Player_Buff_Template</ScreenID>
-		<Font>2</Font>
 		<RelativePosition>true</RelativePosition>
 		<Size>
-			<CX>216</CX>
-			<CY>20</CY>
+			<CX>32</CX>
+			<CY>32</CY>
 		</Size>
+		<Style_VScroll>false</Style_VScroll>
+		<Style_HScroll>false</Style_HScroll>
+		<Style_Transparent>false</Style_Transparent>
+		<Style_Checkbox>false</Style_Checkbox>
+		<Font>3</Font>
+		<FontShadow>true</FontShadow>
 		<Template>BDT_PlayerBuff</Template>
 		<DecalOffset>
-			<X>0</X>
-			<Y>0</Y>
+			<X>1</X>
+			<Y>1</Y>
 		</DecalOffset>
 		<DecalSize>
-			<CX>20</CX>
-			<CY>20</CY>
+			<CX>30</CX>
+			<CY>30</CY>
 		</DecalSize>
 	</Button>
 	<TileLayoutBox item="SDBW_Buttons">
@@ -25,10 +30,10 @@
 		<AutoStretch>true</AutoStretch>
 		<TopAnchorOffset>0</TopAnchorOffset>
 		<LeftAnchorOffset>1</LeftAnchorOffset>
-		<RightAnchorOffset>0</RightAnchorOffset>
+		<RightAnchorOffset>33</RightAnchorOffset>
 		<BottomAnchorOffset>0</BottomAnchorOffset>
 		<BottomAnchorToTop>false</BottomAnchorToTop>
-		<RightAnchorToLeft>false</RightAnchorToLeft>
+		<RightAnchorToLeft>true</RightAnchorToLeft>
 		<Style_Transparent>true</Style_Transparent>
 		<Spacing>0</Spacing>
 		<SecondarySpacing>0</SecondarySpacing>
@@ -93,7 +98,7 @@
 	<Screen item="SDBW_00_Screen">
 		<Size>
 			<CX>216</CX>
-			<CY>20</CY>
+			<CY>32</CY>
 		</Size>
 			<Pieces>SDBW_Buff_FrontSpacer</Pieces>
 			<Pieces>SDBW_Buff0</Pieces>
@@ -481,7 +486,7 @@
 		<RelativePosition>true</RelativePosition>
 		<AutoStretch>true</AutoStretch>
 		<TopAnchorOffset>0</TopAnchorOffset>
-		<LeftAnchorOffset>1</LeftAnchorOffset>
+		<LeftAnchorOffset>9</LeftAnchorOffset>
 		<RightAnchorOffset>0</RightAnchorOffset>
 		<BottomAnchorOffset>0</BottomAnchorOffset>
 		<BottomAnchorToTop>false</BottomAnchorToTop>
