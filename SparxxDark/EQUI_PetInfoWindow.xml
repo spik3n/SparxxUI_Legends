@@ -544,12 +544,12 @@
 		<ScreenID>PetBuffWindow</ScreenID>
 		<RelativePosition>true</RelativePosition>
 		<AutoStretch>true</AutoStretch>
-		<LeftAnchorOffset>353</LeftAnchorOffset>
-		<TopAnchorOffset>2</TopAnchorOffset>
+		<LeftAnchorOffset>4</LeftAnchorOffset>
+		<TopAnchorOffset>-28</TopAnchorOffset>
 		<RightAnchorOffset>4</RightAnchorOffset>
-		<BottomAnchorOffset>2</BottomAnchorOffset>
+		<BottomAnchorOffset>-2</BottomAnchorOffset>
 		<TopAnchorToTop>true</TopAnchorToTop>
-		<BottomAnchorToTop>false</BottomAnchorToTop>
+		<BottomAnchorToTop>true</BottomAnchorToTop>
 		<RightAnchorToLeft>false</RightAnchorToLeft>
 		<LeftAnchorToLeft>true</LeftAnchorToLeft>
 		<Style_VScroll>false</Style_VScroll>
