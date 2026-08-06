@@ -7339,7 +7339,40 @@
 		<BottomAnchorToTop>true</BottomAnchorToTop>
 	</Button>
 
-	<Label item="IWP_EquipmentLabel">
+		<Label item="IWP_LoadoutSwapAvailableLabel">
+		<RelativePosition>true</RelativePosition>
+		<Location>
+			<X>214</X>
+			<Y>308</Y>
+		</Location>
+		<Size>
+			<CX>120</CX>
+			<CY>14</CY>
+		</Size>
+		<Font>3</Font>
+		<Text>Swapping available:</Text>
+		<NoWrap>true</NoWrap>
+		<AlignCenter>false</AlignCenter>
+		<AlignRight>false</AlignRight>
+	</Label>
+	<Label item="IWP_LoadoutSwapAvailable">
+		<RelativePosition>true</RelativePosition>
+		<EQType>1027</EQType>
+		<Location>
+			<X>334</X>
+			<Y>308</Y>
+		</Location>
+		<Size>
+			<CX>25</CX>
+			<CY>14</CY>
+		</Size>
+		<Font>3</Font>
+		<Text></Text>
+		<NoWrap>true</NoWrap>
+		<AlignCenter>false</AlignCenter>
+		<AlignRight>false</AlignRight>
+	</Label>
+<Label item="IWP_EquipmentLabel">
 		<RelativePosition>true</RelativePosition>
 		<Location>
 			<X>12</X>
@@ -8671,6 +8704,8 @@
 		<Pieces>IWP_LoadoutInfoText</Pieces>
 		<Pieces>IWP_LoadoutInfoStatus</Pieces>
 		<Pieces>IWP_LoadoutSwappableIndicator</Pieces>
+		<Pieces>IWP_LoadoutSwapAvailableLabel</Pieces>
+		<Pieces>IWP_LoadoutSwapAvailable</Pieces>
 		<Pieces>Screen:IWP_CharacterLevels1</Pieces>
 		<Pieces>Screen:IWP_CharacterLevels2</Pieces>
 		<Pieces>Screen:IWP_CharacterLevels3</Pieces>
