@@ -40,8 +40,8 @@ gauges and links stay readable.
 | ![SparxxRed](SparxxUI_pictures/SparxxRed.png) | ![SparxxGold](SparxxUI_pictures/SparxxGold.png) |
 | **Bronze** | **3D target ring** |
 | ![SparxxBronze](SparxxUI_pictures/SparxxBronze.png) | ![Target ring](SparxxUI_pictures/TargetRing.png) |
-| **Target ring markers** | |
-| ![Target ring markers](SparxxUI_pictures/TargetRingMark.png) | |
+| **Target ring markers** | **Buff & song timers** |
+| ![Target ring markers](SparxxUI_pictures/TargetRingMark.png) | ![Buff and song timers](SparxxUI_pictures/Buffs_and_Songs.png) |
 
 ## The 3D target ring
 
