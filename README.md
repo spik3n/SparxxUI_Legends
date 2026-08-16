@@ -69,39 +69,66 @@ at launch):
 To hand-tune: in a spinning file, `Duration` sets how long the 82-frame cycle
 takes — higher = slower. `FrameCount=0` with `Texture=<Color>_0` = no spin.
 
-## Install (installer)
+## Installing — pick one
 
-1. Run `Install.bat` (or `python install.py`).
-2. Choose a single theme, **Install ALL themes**, or **Target ring only** (just
-   the ring, no theme — handy if you already have a UI you like).
-3. Choose the **target ring** — a Sparxx ring (no spin / slow / normal / fast),
-   or keep the game's default ring.
-4. When the folder browser opens, select your EverQuest Legends folder (the one
-   containing `eqgame.exe`).
-4. In game, load it:
+There are two ways to install. **If you're not comfortable with computer stuff,
+use the Manual method** — it's just copying folders and needs no extra software.
+The Installer is an optional convenience that automates the copying, but it needs
+Python.
 
+## Install — Manual (easiest, no Python needed)
+
+Same drag‑and‑drop copy EverQuest UIs have always used:
+
+1. **Get the files.** On this project's GitHub page, click the green **`< > Code`**
+   button → **Download ZIP** (or grab a package from **Releases**). Unzip it.
+2. **Find your game folder** — the EverQuest Legends folder that has `eqgame.exe`
+   in it. Open the **`uifiles`** folder inside it.
+3. **Copy in a theme.** Drag one theme folder (for example `SparxxVenom`) into
+   `uifiles`, so you end up with `...\uifiles\SparxxVenom\`.
+4. **(Optional) 3D target ring.** Open the `TargetRing` folder, select everything
+   **except** the `options` folder, and copy those files into `...\uifiles\default\`.
+   Skip this if you don't want the ring.
+5. **Load it in game.** Start EverQuest and type:
    ```
-   /loadskin <ThemeName> 1
+   /loadskin SparxxVenom 1
    ```
+   Use whichever theme folder you copied. The `1` keeps your window positions.
 
-   e.g. `/loadskin SparxxVenom 1`. The `1` keeps your current window positions.
+Close EverQuest before copying files — it rewrites UI files when it exits. The
+ring only updates on a **full game restart**, not `/loadskin`.
 
-The installer copies the chosen theme into `uifiles\<ThemeName>\` and the target
-ring into `uifiles\default\`.
+## Install — Installer (optional, needs Python)
 
-## Install (manual)
+The installer just automates the steps above with a little menu. First install
+Python (see below), then:
 
-No installer needed — it's the same drop-in copy EverQuest UIs have always used:
+1. Double‑click **`Install.bat`** (or run `python install.py`).
+2. Choose a single theme, **Install ALL themes**, or **Target ring only**.
+3. Choose the **target ring** (no spin / slow / normal / fast, or keep the game's
+   default ring).
+4. When the folder browser opens, pick your EverQuest Legends folder (the one with
+   `eqgame.exe`).
+5. In game: `/loadskin <ThemeName> 1`  (e.g. `/loadskin SparxxVenom 1`).
 
-1. Copy one theme folder (e.g. `SparxxVenom`) into your Legends `uifiles`
-   folder, so you have `...\uifiles\SparxxVenom\`.
-2. Copy the **contents** of `TargetRing/` (the frame `.tga` files and
-   `TargetIndicator.ini`, not the `options/` folder) into `...\uifiles\default\`.
-   Skip this step if you don't want the con-colored ring.
-3. In game: `/loadskin SparxxVenom 1`.
+It copies the theme into `uifiles\<ThemeName>\` and the ring into `uifiles\default\`.
 
-Close EverQuest before copying — it rewrites UI files on exit. The ring only
-updates on a full client restart, not `/loadskin`.
+### Getting Python (only if you use the Installer)
+
+**Don't get it from the Microsoft Store** — there are too many confusing options
+there. Use the official installer instead:
+
+1. In your web browser, go to **https://www.python.org/downloads/**
+2. Click the big yellow **Download Python 3.x** button near the top. Any Python
+   **3** version works — newer is fine.
+3. Run the file you just downloaded. On the **very first screen**, tick the
+   checkbox **“Add python.exe to PATH”** at the bottom — this step matters.
+4. Click **Install Now**, let it finish, then **Close**.
+5. (Optional check) Press **Win + R**, type `cmd`, press Enter, then type
+   `python --version`. If it prints something like `Python 3.13.0`, you're set.
+
+If that feels like too much, just use the **Manual** method above — it does the
+exact same thing without Python.
 
 ## Notes
 
@@ -109,6 +136,6 @@ updates on a full client restart, not `/loadskin`.
   skin — drag them, or remove your `UI_<character>_<server>.ini` to start fresh.
 - To remove the ring later, delete the ring files and `TargetIndicator.ini` from
   `uifiles\default`; the client falls back to its built-in ring.
-- Requirements for the installer: Python 3 (Tkinter, included with the standard
-  Windows Python, is used for the folder browser; if it's unavailable the script
-  asks you to paste the path instead).
+- The installer uses Python's built‑in Tkinter (bundled with the python.org
+  installer) for the folder browser. If it's ever missing, the script just asks
+  you to paste your game folder path instead.
