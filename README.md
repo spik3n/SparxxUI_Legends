@@ -98,25 +98,15 @@ Same drag‑and‑drop copy EverQuest UIs have always used:
 Close EverQuest before copying files — it rewrites UI files when it exits. The
 ring only updates on a **full game restart**, not `/loadskin`.
 
-## Install — Installer (optional, needs Python)
+## Install — Auto installer (optional)
 
-The installer just automates the steps above with a little menu. First install
-Python (see below), then:
+Prefer to have it done for you? The installer is a small menu that copies
+everything automatically. It needs Python — a free, one‑time install.
 
-1. Double‑click **`Install.bat`** (or run `python install.py`).
-2. Choose a single theme, **Install ALL themes**, or **Target ring only**.
-3. Choose the **target ring** (no spin / slow / normal / fast, or keep the game's
-   default ring).
-4. When the folder browser opens, pick your EverQuest Legends folder (the one with
-   `eqgame.exe`).
-5. In game: `/loadskin <ThemeName> 1`  (e.g. `/loadskin SparxxVenom 1`).
-
-It copies the theme into `uifiles\<ThemeName>\` and the ring into `uifiles\default\`.
-
-### Getting Python (only if you use the Installer)
+### Step 1 — Install Python (one time)
 
 **Don't get it from the Microsoft Store** — there are too many confusing options
-there. Use the official installer instead:
+there. Use the official installer:
 
 1. In your web browser, go to **https://www.python.org/downloads/**
 2. Click the big yellow **Download Python 3.x** button near the top. Any Python
@@ -124,11 +114,36 @@ there. Use the official installer instead:
 3. Run the file you just downloaded. On the **very first screen**, tick the
    checkbox **“Add python.exe to PATH”** at the bottom — this step matters.
 4. Click **Install Now**, let it finish, then **Close**.
-5. (Optional check) Press **Win + R**, type `cmd`, press Enter, then type
-   `python --version`. If it prints something like `Python 3.13.0`, you're set.
 
-If that feels like too much, just use the **Manual** method above — it does the
-exact same thing without Python.
+*(Already have Python? Skip to Step 2. To check: press **Win + R**, type `cmd`,
+Enter, then `python --version` — if it prints `Python 3.x`, you're good.)*
+
+### Step 2 — Run the installer
+
+1. Unzip the download and open the `SparxxUI_Legends` folder.
+2. Double‑click **`Install.bat`**. A small text window opens.
+   - If Windows shows a blue **“Windows protected your PC”** box, click
+     **More info → Run anyway** (it's just a `.bat` that starts the installer).
+3. It lists the themes — type the **number** of the one you want (or the number
+   for **Install ALL themes** / **Target ring only**) and press **Enter**.
+4. It asks about the **target ring** — type the number for your choice (no spin /
+   slow / normal / fast, or keep the game's default) and press **Enter**.
+5. A **folder‑picker window** opens — browse to your **EverQuest Legends** folder
+   (the one with `eqgame.exe`) and click **Select Folder**.
+6. It copies everything and prints **Done**. Close the window.
+
+### Step 3 — Load it in game
+
+Start EverQuest and type:
+```
+/loadskin SparxxVenom 1
+```
+Use whichever theme you installed (the installer prints the exact command). The
+`1` keeps your window positions.
+
+The installer copies the theme into `uifiles\<ThemeName>\` and the ring into
+`uifiles\default\`. If any of this feels like too much, the **Manual** method
+above does the same thing with no Python.
 
 ## Notes
 
