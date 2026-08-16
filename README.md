@@ -154,3 +154,46 @@ above does the same thing with no Python.
 - The installer uses Python's built‑in Tkinter (bundled with the python.org
   installer) for the folder browser. If it's ever missing, the script just asks
   you to paste your game folder path instead.
+
+## Troubleshooting
+
+**“`python` is not recognized” when running the installer**
+You skipped the **“Add python.exe to PATH”** checkbox during the Python install.
+Easiest fix: re‑run the python.org installer, choose **Modify**, and enable that
+option (or just uninstall/reinstall and tick the box). Or skip Python entirely
+and use the **Manual** install — it does the same thing.
+
+**The UI didn't change after `/loadskin`**
+- Make sure the theme folder is directly inside `uifiles` — i.e.
+  `...\uifiles\SparxxVenom\EQUI.xml`, not `...\uifiles\SparxxVenom\SparxxVenom\`.
+- The name in `/loadskin` must match the folder exactly, e.g.
+  `/loadskin SparxxVenom 1` for the `SparxxVenom` folder.
+- Copy files while EverQuest is **closed** — it rewrites UI files when it exits.
+
+**The target ring didn't appear**
+- The ring files go in **`uifiles\default`**, not the theme folder — the client
+  only reads the ring from there.
+- The ring loads at startup, so you need a **full game restart** (quit to
+  desktop and relaunch), not `/loadskin`.
+- Note: the game's launcher can restore `uifiles\default` on patch days, which
+  removes the ring — just re‑install it if that happens.
+
+**Windows are off‑screen, overlapping, or in weird spots**
+That's your **saved window positions**, not the skin. Drag them where you want,
+or to start fresh close the game and delete your `UI_<character>_<server>.ini`
+(in the main EverQuest folder) — the game rebuilds it at default positions.
+
+**Buff/song timers aren't showing**
+The timer text is drawn on the buff icon, and the client only draws it when
+"Show Buff Timer" is on: **Options → Display → Show Buff Timer**.
+
+**It looks broken / I want to undo everything**
+Delete the theme folder from `uifiles`, load the stock UI with
+`/loadskin default 1` (or `/loadskin default_modern 1`), and remove the ring
+files from `uifiles\default` if you added them.
+
+## Credits
+
+- **SparxxUI** — the original EverQuest interface this look is based on.
+- Rebuilt and themed for **EverQuest Legends**; target ring and installer added
+  for this release.
