@@ -48,10 +48,12 @@ gauges and links stay readable.
 `TargetRing/` holds the con-colored ring that renders under your target in the
 world (grey → green → blue → white → yellow → red by difficulty).
 
-**Important:** the Legends client reads the ring only from the game's
-`uifiles\default` folder — **not** the active skin folder. So the ring is
-installed into `default` once; it then works no matter which Sparxx theme you
-load. (The installer does this for you.)
+The ring loads from your **active skin's folder** (falling back to `default`). The Sparxx
+themes don't carry their own ring, so the installer drops it into `uifiles\default` and it
+shows under whichever theme you load. For a **patch-safe** setup, install it into a
+**Modified Default / Modified Modern** skin instead (see the installer below): the ring loads
+from that custom skin when it's active, and **LaunchPad won't overwrite a custom name** — so
+the ring survives patch day.
 
 ### Spin options
 
@@ -124,8 +126,10 @@ Enter, then `python --version` — if it prints `Python 3.x`, you're good.)*
 2. Double‑click **`Install.bat`**. A small text window opens.
    - If Windows shows a blue **“Windows protected your PC”** box, click
      **More info → Run anyway** (it's just a `.bat` that starts the installer).
-3. It lists the themes — type the **number** of the one you want (or the number
-   for **Install ALL themes** / **Target ring only**) and press **Enter**.
+3. It lists the themes — type the **number** of the one you want. Besides the Sparxx themes
+   you can pick **Modified Default** / **Modified Modern** (patch-safe classic-UI copies of
+   your own `default` / `default_modern` skin with the ring installed into them, so it
+   survives patches), **Install ALL themes**, or **Target ring only**. Press **Enter**.
 4. It asks about the **target ring** — type the number for your choice (no spin /
    slow / normal / fast, or keep the game's default) and press **Enter**.
 5. A **folder‑picker window** opens — browse to your **EverQuest Legends** folder
@@ -149,8 +153,9 @@ above does the same thing with no Python.
 
 - If windows look misplaced the first time, that's saved positions, not the
   skin — drag them, or remove your `UI_<character>_<server>.ini` to start fresh.
-- To remove the ring later, delete the ring files and `TargetIndicator.ini` from
-  `uifiles\default`; the client falls back to its built-in ring.
+- To remove the ring later, delete the ring files and `TargetIndicator.ini` from the skin
+  you installed it into (`uifiles\default`, or your `Modified Default` / `Modified Modern`
+  folder); the client falls back to its built-in ring.
 - The installer uses Python's built‑in Tkinter (bundled with the python.org
   installer) for the folder browser. If it's ever missing, the script just asks
   you to paste your game folder path instead.
@@ -171,12 +176,14 @@ and use the **Manual** install — it does the same thing.
 - Copy files while EverQuest is **closed** — it rewrites UI files when it exits.
 
 **The target ring didn't appear**
-- The ring files go in **`uifiles\default`**, not the theme folder — the client
-  only reads the ring from there.
-- The ring loads at startup, so you need a **full game restart** (quit to
-  desktop and relaunch), not `/loadskin`.
-- Note: the game's launcher can restore `uifiles\default` on patch days, which
-  removes the ring — just re‑install it if that happens.
+- The ring loads from your **active skin's folder** (falling back to `uifiles\default`). The
+  installer puts it in `default` for the Sparxx themes, or in your **Modified Default /
+  Modified Modern** skin — make sure it's in the skin you actually loaded.
+- The ring loads at startup, so you need a **full game restart** (quit to desktop and
+  relaunch), not `/loadskin`.
+- On patch days LaunchPad can restore `uifiles\default`, removing a ring installed there — a
+  **Modified Default / Modified Modern** skin avoids this (LaunchPad leaves custom names
+  alone). Otherwise just re‑install.
 
 **Windows are off‑screen, overlapping, or in weird spots**
 That's your **saved window positions**, not the skin. Drag them where you want,
