@@ -112,10 +112,10 @@ of Windows — **nothing to download or install**.
      **More info → Run anyway** (it's just a `.bat` that starts the PowerShell
      installer).
 3. It lists the themes — type the **number** of the one you want. Besides the Sparxx themes
-   you can pick **Modified Default** / **Modified Modern** (patch-safe, faithful copies of
-   your own `default` / `default_modern` skin with the ring installed into them, so it
-   survives patches and looks exactly like the skin it copied), **Install ALL themes**, or
-   **Target ring only**. Press **Enter**.
+   you can pick **Modified Default** / **Modified Modern** (patch-safe, classic-style copies of
+   your own `default` / `default_modern` skin — Gameface stripped so they render like the
+   Sparxx themes — with the ring installed into them so it survives patches), **Install ALL
+   themes**, or **Target ring only**. Press **Enter**.
 4. It asks about the **target ring** — type the number for your choice (no spin /
    slow / normal / fast, or keep the game's default) and press **Enter**.
 5. A **folder‑picker window** opens — browse to your **EverQuest Legends** folder

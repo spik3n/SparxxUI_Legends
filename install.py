@@ -7,14 +7,15 @@ uifiles ready to load.
 
   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\\default (the themes
     fall back to default, so the ring shows for any of them).
-  - "Modified Default / Modified Modern" are patch-safe, faithful copies of your own
-    default / default_modern skin (LaunchPad won't overwrite a custom name); the ring is
-    installed straight into them so it survives patches. Each looks exactly like the base skin
-    it was copied from - Modified Default looks like your default skin, Modified Modern like
-    your default_modern skin.
+  - "Modified Default / Modified Modern" are patch-safe, classic-style copies of your own
+    default / default_modern skin. Modified Modern copies the "modern" UI (the default_modern
+    folder); Modified Default copies the "default" folder. The Gameface (EQLSUI) files are
+    stripped so they render in the classic UI style like the Sparxx themes; LaunchPad won't
+    overwrite the custom name; and the ring is installed into them so it survives patches.
 """
 import os
 import sys
+import glob
 import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +24,8 @@ THEMES = [
     "SparxxDark", "SparxxObsidian", "SparxxVenom", "SparxxEmber",
     "SparxxRed", "SparxxGold", "SparxxBronze",
 ]
-# (new skin name, base skin to copy) - generated from the user's own EQL UI
+# (new skin name, base skin folder to copy). Modified Modern copies the "modern" UI
+# (the default_modern folder); Modified Default copies the "default" folder.
 MODIFIED = [("Modified Default", "default"), ("Modified Modern", "default_modern")]
 
 RING_OPTIONS = [
@@ -130,20 +132,27 @@ def install_one(theme, uifiles, overwrite):
 
 
 def make_modified_skin(uifiles, base, new_name):
-    """Copy the user's own default / default_modern skin to a custom name LaunchPad won't
-    overwrite (so it survives patches), with the ring installed into it. It is a FAITHFUL copy
-    of the base skin - same look, including the Gameface (EQLSUI) files. Reuses the skin if it
-    already exists so re-running doesn't clobber it. Returns the dest path, or None."""
+    """Make a patch-safe, classic-style copy of the user's own default / default_modern skin.
+    Copies the base skin to a custom name LaunchPad won't overwrite, strips the Gameface
+    (EQLSUI*) files so it renders in the classic UI style like the Sparxx themes, and (via the
+    caller) installs the ring. Regenerates the skin if it already exists so a patch's changes to
+    the base skin are picked up. Returns the dest path, or None."""
     src = os.path.join(uifiles, base)
     dst = os.path.join(uifiles, new_name)
+    if not os.path.isdir(src):
+        print(f"  ! '{base}' skin not found in uifiles - can't create '{new_name}'.")
+        return None
     if os.path.isdir(dst):
-        print(f"  '{new_name}' already exists - adding the ring to it.")
+        print(f"  Refreshing '{new_name}' from '{base}' (picks up patch changes)...")
+        shutil.rmtree(dst)
     else:
-        if not os.path.isdir(src):
-            print(f"  ! '{base}' skin not found in uifiles - can't create '{new_name}'.")
-            return None
-        print(f"  Copying '{base}' -> '{new_name}' (patch-safe copy of your '{base}' skin)...")
-        shutil.copytree(src, dst)
+        print(f"  Copying '{base}' -> '{new_name}' (patch-safe classic-style skin)...")
+    shutil.copytree(src, dst)
+    stripped = glob.glob(os.path.join(dst, "EQLSUI*.xml"))
+    for f in stripped:
+        os.remove(f)
+    if stripped:
+        print(f"    stripped {len(stripped)} Gameface (EQLSUI) file(s) -> classic UI.")
     return dst
 
 

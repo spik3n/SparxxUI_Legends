@@ -6,11 +6,11 @@
 #
 #   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\default (the themes
 #     fall back to default, so the ring shows for any of them).
-#   - "Modified Default / Modified Modern" are patch-safe, faithful copies of your own
-#     default / default_modern skin (LaunchPad won't overwrite a custom name); the ring is
-#     installed straight into them so it survives patches. Each looks exactly like the base
-#     skin it was copied from - Modified Default like your default, Modified Modern like your
-#     default_modern.
+#   - "Modified Default / Modified Modern" are patch-safe, classic-style copies of your own
+#     default / default_modern skin. Modified Modern copies the "modern" UI (the default_modern
+#     folder); Modified Default copies the "default" folder. The Gameface (EQLSUI) files are
+#     stripped so they render in the classic UI style like the Sparxx themes; LaunchPad won't
+#     overwrite the custom name; and the ring is installed into them so it survives patches.
 #
 # Needs no Python - Windows PowerShell (built in) runs this. Launch it with Install.bat.
 
@@ -21,7 +21,8 @@ if (-not $HERE) { $HERE = Split-Path -Parent $MyInvocation.MyCommand.Path }
 $RING = Join-Path $HERE 'TargetRing'
 
 $THEMES = @('SparxxDark','SparxxObsidian','SparxxVenom','SparxxEmber','SparxxRed','SparxxGold','SparxxBronze')
-# (new skin name, base skin to copy) - generated from the user's own EQL UI
+# (new skin name, base skin folder to copy). Modified Modern copies the "modern" UI
+# (the default_modern folder); Modified Default copies the "default" folder.
 $MODIFIED = @(
     @('Modified Default','default'),
     @('Modified Modern','default_modern')
@@ -132,21 +133,28 @@ function Install-One($theme, $uifiles, $overwrite) {
 
 
 function Make-ModifiedSkin($uifiles, $base, $newName) {
-    # Copy the user's own default / default_modern skin to a custom name LaunchPad won't
-    # overwrite, so it survives patches. It is a FAITHFUL copy of the base skin - same look,
-    # including the Gameface (EQLSUI) files - with the ring installed into it. Reuses the skin
-    # if it already exists so re-running doesn't clobber it.
+    # Make a patch-safe, classic-style copy of the user's own default / default_modern skin.
+    # Copies the base to a custom name LaunchPad won't overwrite, strips the Gameface (EQLSUI*)
+    # files so it renders in the classic UI style like the Sparxx themes, and (via the caller)
+    # installs the ring. Regenerates the skin if it already exists so a patch's changes to the
+    # base skin are picked up.
     $src = Join-Path $uifiles $base
     $dst = Join-Path $uifiles $newName
+    if (-not (Test-Path $src -PathType Container)) {
+        Write-Host "  ! '$base' skin not found in uifiles - can't create '$newName'."
+        return $null
+    }
     if (Test-Path $dst -PathType Container) {
-        Write-Host "  '$newName' already exists - adding the ring to it."
+        Write-Host "  Refreshing '$newName' from '$base' (picks up patch changes)..."
+        Remove-Item -LiteralPath $dst -Recurse -Force
     } else {
-        if (-not (Test-Path $src -PathType Container)) {
-            Write-Host "  ! '$base' skin not found in uifiles - can't create '$newName'."
-            return $null
-        }
-        Write-Host "  Copying '$base' -> '$newName' (patch-safe copy of your '$base' skin)..."
-        Copy-Item -LiteralPath $src -Destination $dst -Recurse -Force
+        Write-Host "  Copying '$base' -> '$newName' (patch-safe classic-style skin)..."
+    }
+    Copy-Item -LiteralPath $src -Destination $dst -Recurse -Force
+    $stripped = @(Get-ChildItem -LiteralPath $dst -Filter 'EQLSUI*.xml' -File)
+    foreach ($f in $stripped) { Remove-Item -LiteralPath $f.FullName -Force }
+    if ($stripped.Count -gt 0) {
+        Write-Host "    stripped $($stripped.Count) Gameface (EQLSUI) file(s) -> classic UI."
     }
     return $dst
 }
