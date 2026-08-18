@@ -73,12 +73,12 @@ takes — higher = slower. `FrameCount=0` with `Texture=<Color>_0` = no spin.
 
 ## Installing — pick one
 
-There are two ways to install. **If you're not comfortable with computer stuff,
-use the Manual method** — it's just copying folders and needs no extra software.
-The Installer is an optional convenience that automates the copying, but it needs
-Python.
+Two ways to install, and **neither needs any extra software**. The Manual method
+is just copying folders. The auto installer automates that copying and now runs on
+**Windows PowerShell** — built into Windows, so there's **no Python (or anything
+else) to install**. Use whichever you prefer.
 
-## Install — Manual (easiest, no Python needed)
+## Install — Manual (easiest, just copy folders)
 
 Same drag‑and‑drop copy EverQuest UIs have always used:
 
@@ -103,29 +103,14 @@ ring only updates on a **full game restart**, not `/loadskin`.
 ## Install — Auto installer (optional)
 
 Prefer to have it done for you? The installer is a small menu that copies
-everything automatically. It needs Python — a free, one‑time install.
-
-### Step 1 — Install Python (one time)
-
-**Don't get it from the Microsoft Store** — there are too many confusing options
-there. Use the official installer:
-
-1. In your web browser, go to **https://www.python.org/downloads/**
-2. Click the big yellow **Download Python 3.x** button near the top. Any Python
-   **3** version works — newer is fine.
-3. Run the file you just downloaded. On the **very first screen**, tick the
-   checkbox **“Add python.exe to PATH”** at the bottom — this step matters.
-4. Click **Install Now**, let it finish, then **Close**.
-
-*(Already have Python? Skip to Step 2. To check: press **Win + R**, type `cmd`,
-Enter, then `python --version` — if it prints `Python 3.x`, you're good.)*
-
-### Step 2 — Run the installer
+everything automatically. It runs on **Windows PowerShell**, which is already part
+of Windows — **nothing to download or install**.
 
 1. Unzip the download and open the `SparxxUI_Legends` folder.
 2. Double‑click **`Install.bat`**. A small text window opens.
    - If Windows shows a blue **“Windows protected your PC”** box, click
-     **More info → Run anyway** (it's just a `.bat` that starts the installer).
+     **More info → Run anyway** (it's just a `.bat` that starts the PowerShell
+     installer).
 3. It lists the themes — type the **number** of the one you want. Besides the Sparxx themes
    you can pick **Modified Default** / **Modified Modern** (patch-safe classic-UI copies of
    your own `default` / `default_modern` skin with the ring installed into them, so it
@@ -136,9 +121,7 @@ Enter, then `python --version` — if it prints `Python 3.x`, you're good.)*
    (the one with `eqgame.exe`) and click **Select Folder**.
 6. It copies everything and prints **Done**. Close the window.
 
-### Step 3 — Load it in game
-
-Start EverQuest and type:
+Then load it in game — start EverQuest and type:
 ```
 /loadskin SparxxVenom 1
 ```
@@ -147,7 +130,7 @@ Use whichever theme you installed (the installer prints the exact command). The
 
 The installer copies the theme into `uifiles\<ThemeName>\` and the ring into
 `uifiles\default\`. If any of this feels like too much, the **Manual** method
-above does the same thing with no Python.
+above does the same thing.
 
 ## Notes
 
@@ -156,17 +139,20 @@ above does the same thing with no Python.
 - To remove the ring later, delete the ring files and `TargetIndicator.ini` from the skin
   you installed it into (`uifiles\default`, or your `Modified Default` / `Modified Modern`
   folder); the client falls back to its built-in ring.
-- The installer uses Python's built‑in Tkinter (bundled with the python.org
-  installer) for the folder browser. If it's ever missing, the script just asks
-  you to paste your game folder path instead.
+- The installer uses Windows' built‑in folder browser to pick your game folder.
+  If it can't open for any reason, it just asks you to paste the path instead.
 
 ## Troubleshooting
 
-**“`python` is not recognized” when running the installer**
-You skipped the **“Add python.exe to PATH”** checkbox during the Python install.
-Easiest fix: re‑run the python.org installer, choose **Modify**, and enable that
-option (or just uninstall/reinstall and tick the box). Or skip Python entirely
-and use the **Manual** install — it does the same thing.
+**The installer flashes and closes, or says script execution is disabled**
+Always start it with **`Install.bat`** (double‑click it) — the `.bat` launches
+PowerShell with the right settings. Don't run `install.ps1` on its own. If Windows
+SmartScreen shows **“Windows protected your PC”**, click **More info → Run anyway**.
+Either way, the **Manual** install above needs no installer at all.
+
+**“Python was not found” / a Microsoft Store window opens**
+That's from an older version that used Python. Re‑download the latest release —
+the installer now uses PowerShell and never touches Python.
 
 **The UI didn't change after `/loadskin`**
 - Make sure the theme folder is directly inside `uifiles` — i.e.
