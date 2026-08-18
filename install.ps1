@@ -6,10 +6,11 @@
 #
 #   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\default (the themes
 #     fall back to default, so the ring shows for any of them).
-#   - "Modified Default / Modified Modern" are patch-safe classic-UI copies of your own
+#   - "Modified Default / Modified Modern" are patch-safe, faithful copies of your own
 #     default / default_modern skin (LaunchPad won't overwrite a custom name); the ring is
-#     installed straight into them so it survives patches. They match the map-pack overlay
-#     skins, so one skin can carry both the overlay and the ring.
+#     installed straight into them so it survives patches. Each looks exactly like the base
+#     skin it was copied from - Modified Default like your default, Modified Modern like your
+#     default_modern.
 #
 # Needs no Python - Windows PowerShell (built in) runs this. Launch it with Install.bat.
 
@@ -132,9 +133,9 @@ function Install-One($theme, $uifiles, $overwrite) {
 
 function Make-ModifiedSkin($uifiles, $base, $newName) {
     # Copy the user's own default / default_modern skin to a custom name LaunchPad won't
-    # overwrite (so it survives patches), and strip the Gameface (EQLSUI*) files so it is a
-    # classic-UI skin - identical to the map-pack overlay skins. Reuses the skin if it already
-    # exists (e.g. the map-pack installer made it) so the two don't clobber each other.
+    # overwrite, so it survives patches. It is a FAITHFUL copy of the base skin - same look,
+    # including the Gameface (EQLSUI) files - with the ring installed into it. Reuses the skin
+    # if it already exists so re-running doesn't clobber it.
     $src = Join-Path $uifiles $base
     $dst = Join-Path $uifiles $newName
     if (Test-Path $dst -PathType Container) {
@@ -144,13 +145,8 @@ function Make-ModifiedSkin($uifiles, $base, $newName) {
             Write-Host "  ! '$base' skin not found in uifiles - can't create '$newName'."
             return $null
         }
-        Write-Host "  Copying '$base' -> '$newName' (patch-safe classic-UI skin)..."
+        Write-Host "  Copying '$base' -> '$newName' (patch-safe copy of your '$base' skin)..."
         Copy-Item -LiteralPath $src -Destination $dst -Recurse -Force
-    }
-    $stripped = @(Get-ChildItem -LiteralPath $dst -Filter 'EQLSUI*.xml' -File)
-    foreach ($f in $stripped) { Remove-Item -LiteralPath $f.FullName -Force }
-    if ($stripped.Count -gt 0) {
-        Write-Host "    stripped $($stripped.Count) Gameface (EQLSUI) files -> classic UI."
     }
     return $dst
 }

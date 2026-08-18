@@ -7,14 +7,14 @@ uifiles ready to load.
 
   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\\default (the themes
     fall back to default, so the ring shows for any of them).
-  - "Modified Default / Modified Modern" are patch-safe classic-UI copies of your own
+  - "Modified Default / Modified Modern" are patch-safe, faithful copies of your own
     default / default_modern skin (LaunchPad won't overwrite a custom name); the ring is
-    installed straight into them so it survives patches. They match the map-pack overlay
-    skins, so one skin can carry both the overlay and the ring.
+    installed straight into them so it survives patches. Each looks exactly like the base skin
+    it was copied from - Modified Default looks like your default skin, Modified Modern like
+    your default_modern skin.
 """
 import os
 import sys
-import glob
 import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -131,10 +131,9 @@ def install_one(theme, uifiles, overwrite):
 
 def make_modified_skin(uifiles, base, new_name):
     """Copy the user's own default / default_modern skin to a custom name LaunchPad won't
-    overwrite (so it survives patches), and strip the Gameface (EQLSUI*) files so it is a
-    classic-UI skin - identical to the map-pack overlay skins, so one skin can carry both the
-    ring and the map overlay. Reuses the skin if it already exists (e.g. the map-pack installer
-    made it) so the two don't clobber each other. Returns the dest path, or None."""
+    overwrite (so it survives patches), with the ring installed into it. It is a FAITHFUL copy
+    of the base skin - same look, including the Gameface (EQLSUI) files. Reuses the skin if it
+    already exists so re-running doesn't clobber it. Returns the dest path, or None."""
     src = os.path.join(uifiles, base)
     dst = os.path.join(uifiles, new_name)
     if os.path.isdir(dst):
@@ -143,13 +142,8 @@ def make_modified_skin(uifiles, base, new_name):
         if not os.path.isdir(src):
             print(f"  ! '{base}' skin not found in uifiles - can't create '{new_name}'.")
             return None
-        print(f"  Copying '{base}' -> '{new_name}' (patch-safe classic-UI skin)...")
+        print(f"  Copying '{base}' -> '{new_name}' (patch-safe copy of your '{base}' skin)...")
         shutil.copytree(src, dst)
-    stripped = glob.glob(os.path.join(dst, "EQLSUI*.xml"))
-    for f in stripped:
-        os.remove(f)
-    if stripped:
-        print(f"    stripped {len(stripped)} Gameface (EQLSUI) files -> classic UI.")
     return dst
 
 
