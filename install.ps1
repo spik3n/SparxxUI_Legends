@@ -1,14 +1,14 @@
 # SparxxUI for EverQuest Legends - installer (PowerShell, no dependencies).
 #
-# Pick a Sparxx theme (or a patch-safe "Modified Default / Modified Modern" skin), browse to
+# Pick a Sparxx theme (or a patch-safe "Modified_Default / Modified_Modern" skin), browse to
 # your EverQuest Legends folder, and the skin(s) plus the shared 3D target ring are copied into
 # uifiles ready to load.
 #
 #   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\default (the themes
 #     fall back to default, so the ring shows for any of them).
-#   - "Modified Default / Modified Modern" are patch-safe, classic-style copies of your own
-#     default / default_modern skin. Modified Modern copies the "modern" UI (the default_modern
-#     folder); Modified Default copies the "default" folder. The Gameface (EQLSUI) files are
+#   - "Modified_Default / Modified_Modern" are patch-safe, classic-style copies of your own
+#     default / default_modern skin. Modified_Modern copies the "modern" UI (the default_modern
+#     folder); Modified_Default copies the "default" folder. The Gameface (EQLSUI) files are
 #     stripped so they render in the classic UI style like the Sparxx themes; LaunchPad won't
 #     overwrite the custom name; and the ring is installed into them so it survives patches.
 #
@@ -21,11 +21,13 @@ if (-not $HERE) { $HERE = Split-Path -Parent $MyInvocation.MyCommand.Path }
 $RING = Join-Path $HERE 'TargetRing'
 
 $THEMES = @('SparxxDark','SparxxObsidian','SparxxVenom','SparxxEmber','SparxxRed','SparxxGold','SparxxBronze')
-# (new skin name, base skin folder to copy). Modified Modern copies the "modern" UI
-# (the default_modern folder); Modified Default copies the "default" folder.
+# (new skin name, base skin folder to copy). Modified_Modern copies the "modern" UI
+# (the default_modern folder); Modified_Default copies the "default" folder.
+# Names must have NO SPACES: /loadskin reads the skin name as one space-delimited token, so a
+# spaced folder name never loads - the game silently falls back to "default".
 $MODIFIED = @(
-    @('Modified Default','default'),
-    @('Modified Modern','default_modern')
+    @('Modified_Default','default'),
+    @('Modified_Modern','default_modern')
 )
 $RING_OPTIONS = @(
     @('no-spin.ini',   'Sparxx ring, no spin - static (fastest to load)'),
@@ -46,8 +48,8 @@ function Choose-Target {
     $n = $THEMES.Count
     $allOpt = $n + 1; $mdOpt = $n + 2; $mmOpt = $n + 3; $bothOpt = $n + 4; $ringOpt = $n + 5
     Write-Host "  $allOpt. Install ALL Sparxx themes"
-    Write-Host "  $mdOpt. Modified Default  (patch-safe copy of your 'default' skin + ring)"
-    Write-Host "  $mmOpt. Modified Modern   (patch-safe copy of your 'default_modern' skin + ring)"
+    Write-Host "  $mdOpt. Modified_Default  (patch-safe copy of your 'default' skin + ring)"
+    Write-Host "  $mmOpt. Modified_Modern   (patch-safe copy of your 'default_modern' skin + ring)"
     Write-Host "  $bothOpt. Both Modified skins"
     Write-Host "  $ringOpt. Target ring only (into default)"
     while ($true) {
@@ -233,7 +235,7 @@ function Main {
     }
     if ($made.Count -gt 0) {
         Write-Host "Load a patch-safe skin in game with:"
-        foreach ($name in $made) { Write-Host "  /loadskin `"$name`" 1" }
+        foreach ($name in $made) { Write-Host "  /loadskin $name 1" }
     }
     if ($ringDone.Count -gt 0) { Write-Host "Fully restart EverQuest to load the target ring." }
     if ($installed.Count -eq 0 -and $made.Count -eq 0 -and $ringDone.Count -eq 0) {

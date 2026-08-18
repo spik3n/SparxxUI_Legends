@@ -51,7 +51,7 @@ world (grey → green → blue → white → yellow → red by difficulty).
 The ring loads from your **active skin's folder** (falling back to `default`). The Sparxx
 themes don't carry their own ring, so the installer drops it into `uifiles\default` and it
 shows under whichever theme you load. For a **patch-safe** setup, install it into a
-**Modified Default / Modified Modern** skin instead (see the installer below): the ring loads
+**Modified_Default / Modified_Modern** skin instead (see the installer below): the ring loads
 from that custom skin when it's active, and **LaunchPad won't overwrite a custom name** — so
 the ring survives patch day.
 
@@ -112,7 +112,7 @@ of Windows — **nothing to download or install**.
      **More info → Run anyway** (it's just a `.bat` that starts the PowerShell
      installer).
 3. It lists the themes — type the **number** of the one you want. Besides the Sparxx themes
-   you can pick **Modified Default** / **Modified Modern** (patch-safe, classic-style copies of
+   you can pick **Modified_Default** / **Modified_Modern** (patch-safe, classic-style copies of
    your own `default` / `default_modern` skin — Gameface stripped so they render like the
    Sparxx themes — with the ring installed into them so it survives patches), **Install ALL
    themes**, or **Target ring only**. Press **Enter**.
@@ -138,7 +138,7 @@ above does the same thing.
 - If windows look misplaced the first time, that's saved positions, not the
   skin — drag them, or remove your `UI_<character>_<server>.ini` to start fresh.
 - To remove the ring later, delete the ring files and `TargetIndicator.ini` from the skin
-  you installed it into (`uifiles\default`, or your `Modified Default` / `Modified Modern`
+  you installed it into (`uifiles\default`, or your `Modified_Default` / `Modified_Modern`
   folder); the client falls back to its built-in ring.
 - The installer uses Windows' built‑in folder browser to pick your game folder.
   If it can't open for any reason, it just asks you to paste the path instead.
@@ -164,12 +164,12 @@ the installer now uses PowerShell and never touches Python.
 
 **The target ring didn't appear**
 - The ring loads from your **active skin's folder** (falling back to `uifiles\default`). The
-  installer puts it in `default` for the Sparxx themes, or in your **Modified Default /
-  Modified Modern** skin — make sure it's in the skin you actually loaded.
+  installer puts it in `default` for the Sparxx themes, or in your **Modified_Default /
+  Modified_Modern** skin — make sure it's in the skin you actually loaded.
 - The ring loads at startup, so you need a **full game restart** (quit to desktop and
   relaunch), not `/loadskin`.
 - On patch days LaunchPad can restore `uifiles\default`, removing a ring installed there — a
-  **Modified Default / Modified Modern** skin avoids this (LaunchPad leaves custom names
+  **Modified_Default / Modified_Modern** skin avoids this (LaunchPad leaves custom names
   alone). Otherwise just re‑install.
 
 **Windows are off‑screen, overlapping, or in weird spots**

@@ -1,15 +1,15 @@
 """
 SparxxUI for EverQuest Legends - installer.
 
-Pick a Sparxx theme (or a patch-safe "Modified Default / Modified Modern" skin), browse to
+Pick a Sparxx theme (or a patch-safe "Modified_Default / Modified_Modern" skin), browse to
 your EverQuest Legends folder, and the skin(s) plus the shared 3D target ring are copied into
 uifiles ready to load.
 
   - A Sparxx theme installs as a custom skin; the ring goes into uifiles\\default (the themes
     fall back to default, so the ring shows for any of them).
-  - "Modified Default / Modified Modern" are patch-safe, classic-style copies of your own
-    default / default_modern skin. Modified Modern copies the "modern" UI (the default_modern
-    folder); Modified Default copies the "default" folder. The Gameface (EQLSUI) files are
+  - "Modified_Default / Modified_Modern" are patch-safe, classic-style copies of your own
+    default / default_modern skin. Modified_Modern copies the "modern" UI (the default_modern
+    folder); Modified_Default copies the "default" folder. The Gameface (EQLSUI) files are
     stripped so they render in the classic UI style like the Sparxx themes; LaunchPad won't
     overwrite the custom name; and the ring is installed into them so it survives patches.
 """
@@ -24,9 +24,11 @@ THEMES = [
     "SparxxDark", "SparxxObsidian", "SparxxVenom", "SparxxEmber",
     "SparxxRed", "SparxxGold", "SparxxBronze",
 ]
-# (new skin name, base skin folder to copy). Modified Modern copies the "modern" UI
-# (the default_modern folder); Modified Default copies the "default" folder.
-MODIFIED = [("Modified Default", "default"), ("Modified Modern", "default_modern")]
+# (new skin name, base skin folder to copy). Modified_Modern copies the "modern" UI
+# (the default_modern folder); Modified_Default copies the "default" folder.
+# Names must have NO SPACES: /loadskin reads the skin name as one space-delimited token, so a
+# spaced folder name never loads - the game silently falls back to "default".
+MODIFIED = [("Modified_Default", "default"), ("Modified_Modern", "default_modern")]
 
 RING_OPTIONS = [
     ("no-spin.ini",   "Sparxx ring, no spin - static (fastest to load)"),
@@ -46,8 +48,8 @@ def choose_target():
     n = len(THEMES)
     all_opt, md_opt, mm_opt, both_opt, ring_opt = n + 1, n + 2, n + 3, n + 4, n + 5
     print(f"  {all_opt}. Install ALL Sparxx themes")
-    print(f"  {md_opt}. Modified Default  (patch-safe copy of your 'default' skin + ring)")
-    print(f"  {mm_opt}. Modified Modern   (patch-safe copy of your 'default_modern' skin + ring)")
+    print(f"  {md_opt}. Modified_Default  (patch-safe copy of your 'default' skin + ring)")
+    print(f"  {mm_opt}. Modified_Modern   (patch-safe copy of your 'default_modern' skin + ring)")
     print(f"  {both_opt}. Both Modified skins")
     print(f"  {ring_opt}. Target ring only (into default)")
     while True:
@@ -221,7 +223,7 @@ def main():
     if made:
         print("Load a patch-safe skin in game with:")
         for name in made:
-            print(f'  /loadskin "{name}" 1')
+            print(f"  /loadskin {name} 1")
     if ring_done:
         print("Fully restart EverQuest to load the target ring.")
     if not installed and not made and not ring_done:
