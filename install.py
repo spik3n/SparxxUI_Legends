@@ -134,21 +134,20 @@ def install_one(theme, uifiles, overwrite):
 
 
 def make_modified_skin(uifiles, base, new_name):
-    """Make a patch-safe, classic-style copy of the user's own default / default_modern skin.
-    Copies the base skin to a custom name LaunchPad won't overwrite, strips the Gameface
-    (EQLSUI*) files so it renders in the classic UI style like the Sparxx themes, and (via the
-    caller) installs the ring. Regenerates the skin if it already exists so a patch's changes to
-    the base skin are picked up. Returns the dest path, or None."""
+    """Make (or REUSE) a patch-safe, classic-style copy of the user's own default / default_modern
+    skin. If the skin folder already exists it is LEFT IN PLACE and this installer just adds its
+    own bits (the ring) into it - so a skin that already carries the map-pack overlay keeps it,
+    and vice versa. Only a brand-new skin is copied from the base and Gameface-stripped. To pull
+    in a game patch's UI changes, delete the skin folder and re-run. Returns the dest path, or None."""
     src = os.path.join(uifiles, base)
     dst = os.path.join(uifiles, new_name)
+    if os.path.isdir(dst):
+        print(f"  '{new_name}' already exists - adding to it (keeping any other changes).")
+        return dst
     if not os.path.isdir(src):
         print(f"  ! '{base}' skin not found in uifiles - can't create '{new_name}'.")
         return None
-    if os.path.isdir(dst):
-        print(f"  Refreshing '{new_name}' from '{base}' (picks up patch changes)...")
-        shutil.rmtree(dst)
-    else:
-        print(f"  Copying '{base}' -> '{new_name}' (patch-safe classic-style skin)...")
+    print(f"  Copying '{base}' -> '{new_name}' (patch-safe classic-style skin)...")
     shutil.copytree(src, dst)
     stripped = glob.glob(os.path.join(dst, "EQLSUI*.xml"))
     for f in stripped:

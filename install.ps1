@@ -135,23 +135,22 @@ function Install-One($theme, $uifiles, $overwrite) {
 
 
 function Make-ModifiedSkin($uifiles, $base, $newName) {
-    # Make a patch-safe, classic-style copy of the user's own default / default_modern skin.
-    # Copies the base to a custom name LaunchPad won't overwrite, strips the Gameface (EQLSUI*)
-    # files so it renders in the classic UI style like the Sparxx themes, and (via the caller)
-    # installs the ring. Regenerates the skin if it already exists so a patch's changes to the
-    # base skin are picked up.
+    # Make (or REUSE) a patch-safe, classic-style copy of the user's own default / default_modern
+    # skin. If the skin already exists it is LEFT IN PLACE and this installer just adds its own
+    # bits (the ring) into it - so a skin that already carries the map-pack overlay keeps it, and
+    # vice versa. Only a brand-new skin is copied from the base and Gameface-stripped. To pull in
+    # a game patch's UI changes, delete the skin folder and re-run.
     $src = Join-Path $uifiles $base
     $dst = Join-Path $uifiles $newName
+    if (Test-Path $dst -PathType Container) {
+        Write-Host "  '$newName' already exists - adding to it (keeping any other changes)."
+        return $dst
+    }
     if (-not (Test-Path $src -PathType Container)) {
         Write-Host "  ! '$base' skin not found in uifiles - can't create '$newName'."
         return $null
     }
-    if (Test-Path $dst -PathType Container) {
-        Write-Host "  Refreshing '$newName' from '$base' (picks up patch changes)..."
-        Remove-Item -LiteralPath $dst -Recurse -Force
-    } else {
-        Write-Host "  Copying '$base' -> '$newName' (patch-safe classic-style skin)..."
-    }
+    Write-Host "  Copying '$base' -> '$newName' (patch-safe classic-style skin)..."
     Copy-Item -LiteralPath $src -Destination $dst -Recurse -Force
     $stripped = @(Get-ChildItem -LiteralPath $dst -Filter 'EQLSUI*.xml' -File)
     foreach ($f in $stripped) { Remove-Item -LiteralPath $f.FullName -Force }
